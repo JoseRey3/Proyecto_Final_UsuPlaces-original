@@ -176,7 +176,8 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bottom_btn2" />
+                        app:srcCompat="@drawable/bottom_btn2"
+                        android:onClick="showPopupMenu"/>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>

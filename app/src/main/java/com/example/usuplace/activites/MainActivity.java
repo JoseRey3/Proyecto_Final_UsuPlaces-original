@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 
 import com.example.usuplace.Adapter.CategoryAdapter;
 import com.example.usuplace.Adapter.ItemAdapter;
@@ -51,4 +55,33 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+        // Manejar los clics en los elementos del menú
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_profile:
+                        // Acción para "Perfil"
+                        return true;
+                    case R.id.menu_logout:
+                        // Acción para "Cerrar Sesión"
+                        Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+                        startActivity(intent);
+                        finish(); // Finalizar la actividad actual
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Mostrar el menú desplegable
+        popupMenu.show();
+    }
+
 }
