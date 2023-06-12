@@ -17,6 +17,10 @@
         <activity
             android:name=".activites.ItemDetail"
             android:exported="false" />
+        <activity android:name=".activites.LoginActivity"
+            android:exported="false" />
+        <activity android:name=".activites.RegisterActivity"
+            android:exported="false" />
         <activity
             android:name=".activites.IntroActivity"
             android:exported="true">
