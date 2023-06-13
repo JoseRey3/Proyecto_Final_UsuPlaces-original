@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.menu_logout:
                         // Acción para "Cerrar Sesión"
-                        Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish(); // Finalizar la actividad actual
                         return true;

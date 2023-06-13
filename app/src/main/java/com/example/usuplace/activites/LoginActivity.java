@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        //dBmanager = new DBmanager(this);
+        dbManager = new DBmanager(this);
 
         // Obtener referencias de los elementos de la interfaz
         txtEmail = findViewById(R.id.editTextEmail);
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         // Verificar las credenciales del usuario en la base de datos
         if (dbManager.checkUserCredentials(email, password)) {
             // Credenciales válidas, redirigir al usuario a la siguiente actividad
-            Intent intent = new Intent(LoginActivity.this, IntroActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         } else {

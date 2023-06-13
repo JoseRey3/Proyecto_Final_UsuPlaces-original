@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
-        //dbManager = new DBmanager(this);
+        dbManager = new DBmanager(this);
 
         // Obtener referencias de los elementos de la interfaz
         txtName = findViewById(R.id.editTextName);
