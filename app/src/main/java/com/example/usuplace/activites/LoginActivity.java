@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.usuplace.Database.DBmanager;
 import com.example.usuplace.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -18,14 +17,14 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtPassword;
     private Button btnLogin;
     private TextView txtViewSignUp;
-    private DBmanager dbManager;
+    private DBmanagerFb dbManager;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        dbManager = new DBmanager(this);
+        dbManager = new DBmanagerFb(this);
 
         // Obtener referencias de los elementos de la interfaz
         txtEmail = findViewById(R.id.editTextEmail);

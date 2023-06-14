@@ -12,79 +12,84 @@ import android.widget.PopupMenu;
 
 import com.example.usuplace.Adapter.CategoryAdapter;
 import com.example.usuplace.Adapter.DepartmentAdapter;
-import com.example.usuplace.Adapter.ItemAdapter;
 import com.example.usuplace.Domain.CategoryDomain;
 import com.example.usuplace.Domain.DepartmentDomain;
-import com.example.usuplace.Domain.ItemDomain;
 import com.example.usuplace.R;
+import com.google.firebase.FirebaseApp;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView.Adapter adapterplace, adapterCategory;
-    private RecyclerView recyclerViewPlace, recyclerViewCategory;
+    private RecyclerView.Adapter adapterPlace;
+    private RecyclerView recyclerViewPlace;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Inicializar Firebase
+        FirebaseApp.initializeApp(this);
+
         initRecyclerView();
     }
 
     private void initRecyclerView() {
-        //Category
-        ArrayList<CategoryDomain> CatArrayList = new ArrayList<>();
-        CatArrayList.add(new CategoryDomain("Pueblitos Mágicos", "cat_1"));
-        CatArrayList.add(new CategoryDomain("Acuaticos", "cat_2"));
+        // Places
+        ArrayList<DepartmentDomain> itemArrayList = new ArrayList<>();
+        itemArrayList.add(new DepartmentDomain("Ahuachapán", "pic1"));
+        itemArrayList.add(new DepartmentDomain("Cabañas", "pic2"));
+        itemArrayList.add(new DepartmentDomain("Chalatenango", "pic1"));
+        itemArrayList.add(new DepartmentDomain("Cuscatlán", "pic2"));
+        itemArrayList.add(new DepartmentDomain("La Libertad", "pic2"));
+        itemArrayList.add(new DepartmentDomain("Morazán", "pic1"));
+        itemArrayList.add(new DepartmentDomain("La Paz", "pic2"));
+        itemArrayList.add(new DepartmentDomain("Santa Ana", "pic1"));
+        itemArrayList.add(new DepartmentDomain("San Miguel", "pic2"));
+        itemArrayList.add(new DepartmentDomain("San Salvador", "pic1"));
+        itemArrayList.add(new DepartmentDomain("San Vicente", "pic2"));
+        itemArrayList.add(new DepartmentDomain("Sonsonate", "pic2"));
+        itemArrayList.add(new DepartmentDomain("La Unión", "pic1"));
+        itemArrayList.add(new DepartmentDomain("Usulután", "pic2"));
 
-        recyclerViewCategory= findViewById(R.id.category);
-        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        RecyclerView.Adapter<CategoryAdapter.ViewHolder> adapterCategory = new CategoryAdapter(CatArrayList);
-        recyclerViewCategory.setAdapter(adapterCategory);
-
-        //Places
-        ArrayList<DepartmentDomain> ItemArraylist = new ArrayList<>();
-        ItemArraylist.add(new DepartmentDomain("Ahuachapán", "pic1"));
-        ItemArraylist.add(new DepartmentDomain("Cabañas", "pic2"));
-        ItemArraylist.add(new DepartmentDomain("Chalatenango", "pic1"));
-        ItemArraylist.add(new DepartmentDomain("Cuscatlán", "pic2"));
-        ItemArraylist.add(new DepartmentDomain("La Libertad", "pic2"));
-        ItemArraylist.add(new DepartmentDomain("Morazán", "pic1"));
-        ItemArraylist.add(new DepartmentDomain("La Paz", "pic2"));
-        ItemArraylist.add(new DepartmentDomain("Santa Ana", "pic1"));
-        ItemArraylist.add(new DepartmentDomain("San Miguel", "pic2"));
-        ItemArraylist.add(new DepartmentDomain("San Salvador", "pic1"));
-        ItemArraylist.add(new DepartmentDomain("San Vicente", "pic2"));
-        ItemArraylist.add(new DepartmentDomain("Sonsonate", "pic2"));
-        ItemArraylist.add(new DepartmentDomain("La Unión", "pic1"));
-        ItemArraylist.add(new DepartmentDomain("Usulután", "pic2"));
-
-        recyclerViewPlace= findViewById(R.id.itemRV);
+        recyclerViewPlace = findViewById(R.id.itemRV);
         recyclerViewPlace.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        RecyclerView.Adapter<DepartmentAdapter.ViewHolder> adapterPlace = new DepartmentAdapter(ItemArraylist);
+        adapterPlace = new DepartmentAdapter(itemArrayList);
         recyclerViewPlace.setAdapter(adapterPlace);
 
+        ((DepartmentAdapter) adapterPlace).setOnItemClickListener(new DepartmentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                DepartmentDomain selectedDepartment = itemArrayList.get(position);
 
+                Intent intent = new Intent(MainActivity.this, PlacesActivity.class);
+                intent.putExtra("departmentName", selectedDepartment.getTitle());
+                intent.putExtra("departmentImage", selectedDepartment.getPic());
+                startActivity(intent);
+            }
+        });
     }
 
     public void showPopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
 
-        // Manejar los clics en los elementos del menú
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_profile:
-                        // Acción para "Perfil"
                         return true;
                     case R.id.menu_logout:
-                        // Acción para "Cerrar Sesión"
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(MainActivity.this, IntroActivity.class);
                         startActivity(intent);
-                        finish(); // Finalizar la actividad actual
+                        finish();
+
+                        Intent intent1 = new Intent(MainActivity.this, IntroActivity.class);
+                        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent1);
+                        finish();
                         return true;
                     default:
                         return false;
@@ -92,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Mostrar el menú desplegable
         popupMenu.show();
     }
-
 }

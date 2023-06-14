@@ -1,6 +1,10 @@
 package com.example.usuplace.activites;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,5 +63,32 @@ public class PlacesActivity extends AppCompatActivity {
         recyclerViewPlace.setAdapter(adapterPlace);
 
 
+    }
+
+    public void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_profile:
+                        Intent intent = new Intent(PlacesActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.menu_logout:
+                        intent = new Intent(PlacesActivity.this, IntroActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popupMenu.show();
     }
 }

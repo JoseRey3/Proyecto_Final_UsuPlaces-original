@@ -60,7 +60,7 @@ public class DBmanager {
     public boolean checkUserCredentials(String email, String password) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selection = "email" + " = ?" + " AND " + "password" + " = ?";
-        String[] selectionArgs = { email, password };
+        String[] selectionArgs = {email, password};
         Cursor cursor = db.query("users", null, selection, selectionArgs, null, null, null);
 
         boolean result = cursor.getCount() > 0;

@@ -13,19 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.usuplace.Domain.DepartmentDomain;
-import com.example.usuplace.Domain.ItemDomain;
 import com.example.usuplace.R;
 import com.example.usuplace.activites.ItemDetail;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.ViewHolder>{
+public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.ViewHolder> {
 
-    ArrayList<DepartmentDomain>item;
-    Context context;
+    private ArrayList<DepartmentDomain> item;
+    private Context context;
+    private OnItemClickListener listener;
 
-    public DepartmentAdapter(ArrayList<DepartmentDomain> item){
+    public DepartmentAdapter(ArrayList<DepartmentDomain> item) {
         this.item = item;
     }
 
@@ -41,15 +40,18 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name_place.setText(item.get(position).getTitle());
 
-        int drawablaResourceId = holder.itemView.getResources().getIdentifier(item.get(position).getPic(), "drawable", holder.itemView.getContext().getPackageName());
+        int drawableResourceId = holder.itemView.getResources().getIdentifier(item.get(position).getPic(), "drawable", holder.itemView.getContext().getPackageName());
         Glide.with(holder.itemView.getContext())
-                .load(drawablaResourceId)
+                .load(drawableResourceId)
                 .into(holder.image_place);
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ItemDetail.class);
-            intent.putExtra("object", item.get(position));
-            context.startActivity(intent);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(position);
+                }
+            }
         });
     }
 
@@ -58,15 +60,33 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.Vi
         return item.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name_place;
         ImageView image_place;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name_place = itemView.findViewById(R.id.name_place);
             image_place = itemView.findViewById(R.id.image_place);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
-
 }
