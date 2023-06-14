@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import com.example.usuplace.Adapter.CategoryAdapter;
+import com.example.usuplace.Adapter.DepartmentAdapter;
 import com.example.usuplace.Adapter.ItemAdapter;
 import com.example.usuplace.Domain.CategoryDomain;
+import com.example.usuplace.Domain.DepartmentDomain;
 import com.example.usuplace.Domain.ItemDomain;
 import com.example.usuplace.R;
 
@@ -42,25 +44,25 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCategory.setAdapter(adapterCategory);
 
         //Places
-        ArrayList<ItemDomain> ItemArraylist = new ArrayList<>();
-        ItemArraylist.add(new ItemDomain("Ahuachapán", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic1"));
-        ItemArraylist.add(new ItemDomain("Cabañas", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
-        ItemArraylist.add(new ItemDomain("Chalatenango", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic1"));
-        ItemArraylist.add(new ItemDomain("Cuscatlán", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
-        ItemArraylist.add(new ItemDomain("La Libertad", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
-        ItemArraylist.add(new ItemDomain("Morazán", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic1"));
-        ItemArraylist.add(new ItemDomain("La Paz", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
-        ItemArraylist.add(new ItemDomain("Santa Ana", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic1"));
-        ItemArraylist.add(new ItemDomain("San Miguel", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
-        ItemArraylist.add(new ItemDomain("San Salvador", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic1"));
-        ItemArraylist.add(new ItemDomain("San Vicente", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
-        ItemArraylist.add(new ItemDomain("Sonsonate", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
-        ItemArraylist.add(new ItemDomain("La Unión", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic1"));
-        ItemArraylist.add(new ItemDomain("Usulután", "San José, San Salvador", "Es el mejor lugar para vacacionar", 12, "pic2"));
+        ArrayList<DepartmentDomain> ItemArraylist = new ArrayList<>();
+        ItemArraylist.add(new DepartmentDomain("Ahuachapán", "pic1"));
+        ItemArraylist.add(new DepartmentDomain("Cabañas", "pic2"));
+        ItemArraylist.add(new DepartmentDomain("Chalatenango", "pic1"));
+        ItemArraylist.add(new DepartmentDomain("Cuscatlán", "pic2"));
+        ItemArraylist.add(new DepartmentDomain("La Libertad", "pic2"));
+        ItemArraylist.add(new DepartmentDomain("Morazán", "pic1"));
+        ItemArraylist.add(new DepartmentDomain("La Paz", "pic2"));
+        ItemArraylist.add(new DepartmentDomain("Santa Ana", "pic1"));
+        ItemArraylist.add(new DepartmentDomain("San Miguel", "pic2"));
+        ItemArraylist.add(new DepartmentDomain("San Salvador", "pic1"));
+        ItemArraylist.add(new DepartmentDomain("San Vicente", "pic2"));
+        ItemArraylist.add(new DepartmentDomain("Sonsonate", "pic2"));
+        ItemArraylist.add(new DepartmentDomain("La Unión", "pic1"));
+        ItemArraylist.add(new DepartmentDomain("Usulután", "pic2"));
 
         recyclerViewPlace= findViewById(R.id.itemRV);
         recyclerViewPlace.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        RecyclerView.Adapter<ItemAdapter.ViewHolder> adapterPlace = new ItemAdapter(ItemArraylist);
+        RecyclerView.Adapter<DepartmentAdapter.ViewHolder> adapterPlace = new DepartmentAdapter(ItemArraylist);
         recyclerViewPlace.setAdapter(adapterPlace);
 
 
